@@ -1,0 +1,18 @@
+variables: 
+  API_TOKEN: $API_TOKEN
+
+stages:
+  - cleanup
+
+cleanup:
+  stage: cleanup
+  tags:
+    - docker
+  image: 
+     python:buster
+
+  when: manual
+  script: 
+    - pip install requests
+    - python  gitlab-purge.py $API_TOKEN
+
