@@ -3,7 +3,7 @@ from sys import argv
 
 endpoint = 'https://gitlab.com/api/v4/'
 auth  = argv[1]
-purgeRepo = 101
+
 response = requests.get(endpoint + 'projects/',params="per_page=100",
                         headers={
                                "PRIVATE-TOKEN": auth
@@ -12,8 +12,9 @@ response = requests.get(endpoint + 'projects/',params="per_page=100",
 
 
 for data in response.json():
+
     project_id = data["id"]
-    if project_id != purgeRepo:
+    if project_id != 101:
         print("Delete pipeline for " +  data["name"])
         while (  requests.get(endpoint + 'projects/' + str(project_id) + '/pipelines/',  headers={"PRIVATE-TOKEN": auth}).json() ):
             pipelines_data = requests.get(endpoint + 'projects/' + str(project_id) + '/pipelines/',  headers={"PRIVATE-TOKEN": auth}).json()
