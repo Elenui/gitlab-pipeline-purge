@@ -1,30 +1,42 @@
-# Purpose :
 
-Purge your pipeline's history using the API.
+# Pipeline Purge 
+This small script allow you to :
 
-# How to use it : 
+* Purge your pipeline's history using the API.
 
-From your profile's page create a API key with "api" right.
+## Dependencies
+* [Python](http://www.python.org/) v.3.1
+* Python modules:
+** Requests
 
-Setup the endpoint URL (default is gitlab.com)
+To install them, on Debian/Ubuntu:
 
-Change "purgeRepo" value.
+```
+pip install requests 
+```
 
-Install requests with pip 
-  pip install requests
+## Configuration
 
-Launch the script 
-  python gitlab-purge.py my-secret-api-key
+Set the variable : 
 
-I provide a simple .gitlab-ci if you want to schedule the tasks.
+- endpoint => URL of your gitlab (or put a Gitlab Variable)
 
-# Use it through Gitlab-ci 
+From your gitlab instance create an API Token and put it as gitlab's variable named : API_TOKEN 
 
-Change the variable : "purgeRepo" in order to not kill the pipeline.
+## Usage
 
-There is two way to use it : 
+Just push this to your gitlab repository and trigger the CI.
 
-- Launch the tasks manualy and init the variable when launching the pipeline
-- Create & setup a CI/CD variable name API_TOKEN with your api token
+## Example Ouput from CI : 
 
-Enjoy the script will prompt you which Project is doing + which pipeline it delete.
+```
+python  gitlab-purge.py $API_TOKEN
+Delete pipeline for Configuration Template
+Pipeline 13349 deleted
+Pipeline 13348 deleted
+...
+```
+
+## Contributed by
+
+Alexis TARUSSIO <alexis.tarussio@gmail.com>
